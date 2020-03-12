@@ -16,8 +16,8 @@ export default class SortingVisualizer extends Component {
 
   resetArray() {
     const array = [];
-    for (let i = 0; i < 100; i++) {
-      array.push(randomIntFromInterval(5, 800));
+    for (let i = 0; i < 310; i++) {
+      array.push(randomIntFromInterval(5, 700));
     }
     this.setState({ array });
   }
@@ -26,14 +26,21 @@ export default class SortingVisualizer extends Component {
     const { array } = this.state;
 
     return (
-      <div className="array-container">
-        {array.map((value, idx) => (
-          <div
-            className="array-bar"
-            key={idx}
-            style={{ height: `${value}px` }}
-          ></div>
-        ))}
+      <div className="dashboard">
+        <div className="array-container">
+          {array.map((value, idx) => (
+            <div
+              className="array-bar"
+              key={idx}
+              style={{ height: `${value}px` }}
+            ></div>
+          ))}
+        </div>
+        <div className="actions">
+          <button className="button" onClick={() => this.resetArray()}>
+            Generate a New Array
+          </button>
+        </div>
       </div>
     );
   }
