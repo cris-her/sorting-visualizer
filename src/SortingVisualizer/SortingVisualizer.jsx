@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as InsertionSort from "./algorithms/InsertionSort.js";
 import * as SelectionSort from "./algorithms/SelectionSort.js";
+import * as BubbleSort from "./algorithms/BubbleSort.js";
 import "./SortingVisualizer.css";
 
 export default class SortingVisualizer extends Component {
@@ -34,6 +35,11 @@ export default class SortingVisualizer extends Component {
     this.setState({ sortedArray });
   }
 
+  bubbleSort() {
+    const sortedArray = BubbleSort.sort(this.state.array);
+    this.setState({ sortedArray });
+  }
+
   render() {
     const { array } = this.state;
 
@@ -57,6 +63,9 @@ export default class SortingVisualizer extends Component {
           </button>
           <button className="button" onClick={() => this.selectionSort(array)}>
             Selection Sort
+          </button>
+          <button className="button" onClick={() => this.bubbleSort(array)}>
+            Bubble Sort
           </button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+// O(n^2) time \ O(1) space
 export const sort = (array) => {
   let currentIndex = 0
   while (currentIndex < array.length - 1) {
