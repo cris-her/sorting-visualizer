@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import * as InsertionSort from "./algorithms/InsertionSort.js";
+import * as SelectionSort from "./algorithms/SelectionSort.js";
 import "./SortingVisualizer.css";
 
 export default class SortingVisualizer extends Component {
@@ -23,15 +24,14 @@ export default class SortingVisualizer extends Component {
   }
 
   // O(n^2) time \ O(1) space
-  insertionSort(array) {
-    for (let i = 1; i < array.length; i++) {
-      let j = i;
-      while (j > 0 && array[j] < array[j - 1]) {
-        [array[j - 1], array[j]] = [array[j], array[j - 1]];
-        j--;
-      }
-    }
-    this.setState({ array });
+  insertionSort() {
+    const sortedArray = InsertionSort.sort(this.state.array);
+    this.setState({ sortedArray });
+  }
+
+  selectionSort() {
+    const sortedArray = SelectionSort.sort(this.state.array);
+    this.setState({ sortedArray });
   }
 
   render() {
@@ -54,6 +54,9 @@ export default class SortingVisualizer extends Component {
           </button>
           <button className="button" onClick={() => this.insertionSort(array)}>
             Insertion Sort
+          </button>
+          <button className="button" onClick={() => this.selectionSort(array)}>
+            Selection Sort
           </button>
         </div>
       </div>
