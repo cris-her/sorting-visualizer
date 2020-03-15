@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import * as InsertionSort from "./algorithms/InsertionSort.js";
+import {insertionSortGen} from "./algorithms/InsertionSort.js";
 import * as SelectionSort from "./algorithms/SelectionSort.js";
 import * as BubbleSort from "./algorithms/BubbleSort.js";
 import { getMergeSortAnimations } from "./algorithms/MergeSort.js";
 import "./SortingVisualizer.css";
 
-const ANIMATION_SPEED_MS = 5;
+const ANIMATION_SPEED_MS = 500;
 
-const NUMBER_OF_ARRAY_BARS = 310;
+const NUMBER_OF_ARRAY_BARS = 10;
 
 const PRIMARY_COLOR = 'green';
 
@@ -26,17 +26,32 @@ export default class SortingVisualizer extends Component {
   }
 
   resetArray() {
-    const array = [];
-    for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-      array.push(randomIntFromInterval(5, 730));
-    }
+    const array = [40, 55, 60, 190, 100];
+    //for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
+    //  array.push(randomIntFromInterval(5, 730));
+    //}
     this.setState({ array });
   }
 
   // O(n^2) time \ O(1) space
-  insertionSort() {
-    const sortedArray = InsertionSort.sort(this.state.array);
-    this.setState({ sortedArray });
+  insertionSort(array) {
+    const sort = insertionSortGen(array);
+    console.log(sort);
+    for (let i = 0; i < array; i++) {
+      const {currentIdx, previousIdx, currentArray} = sort.next().value;
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const barOneStyle = arrayBars[previousIdx].style;
+      const barTwoStyle = arrayBars[currentIdx].style;
+      setTimeout(() => {
+        barOneStyle.backgroundColor = SECONDARY_COLOR;
+        barTwoStyle.backgroundColor = SECONDARY_COLOR;
+        this.setState({currentArray});
+      }, i * ANIMATION_SPEED_MS)
+      setTimeout(() => {
+        barOneStyle.backgroundColor = PRIMARY_COLOR;
+        barTwoStyle.backgroundColor = PRIMARY_COLOR;
+      }, i * ANIMATION_SPEED_MS)
+    }
   }
   // O(n^2) time \ O(1) space
   selectionSort() {
@@ -94,7 +109,7 @@ export default class SortingVisualizer extends Component {
           <button className="button" onClick={() => this.insertionSort(array)}>
             Insertion Sort
           </button>
-          <button className="button" onClick={() => this.mergeSort(array)}>
+          <button className="button" onClick={() => this.mergeSort()}>
             Merge Sort
           </button>
           <button className="button" onClick={() => this.selectionSort(array)}>
