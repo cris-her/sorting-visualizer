@@ -34,18 +34,18 @@ export default class SortingVisualizer extends Component {
   }
 
   // O(n^2) time \ O(1) space
-  insertionSort() {
-    const sortedArray = InsertionSort.sort(this.state.array);
+  insertionSort(array) {
+    const sortedArray = InsertionSort.sort(array);
     this.setState({ sortedArray });
   }
   // O(n^2) time \ O(1) space
-  selectionSort() {
-    const sortedArray = SelectionSort.sort(this.state.array);
+  selectionSort(array) {
+    const sortedArray = SelectionSort.sort(array);
     this.setState({ sortedArray });
   }
   // O(n^2) time \ O(1) space
-  bubbleSort() {
-    const sortedArray = BubbleSort.sort(this.state.array);
+  bubbleSort(array) {
+    const sortedArray = BubbleSort.sort(array);
     this.setState({ sortedArray });
   }
 
